@@ -1,4 +1,4 @@
-"use client"
+"use client" //Póngalo siempre que use useState
 import { Catalog } from "../../components/Catalog"
 
 export default function CatalogPage(){

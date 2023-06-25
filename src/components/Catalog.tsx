@@ -3,6 +3,7 @@ import { ProductCard } from "./ProductCard"
 
 //TO DO: Evitar el uso de cadenas de texto directamente en el código (i18n -  internationalization)
 
+//Las interface nos dice la "estructura" que tendrá un objeto
 interface Product{
   id:number,
   name:string,
@@ -18,9 +19,11 @@ interface PageProps{
 
 export const Catalog = ({idPage, items}:PageProps)=>{   
 
+    //<Product[]> le dice al useState quétipo de variable esperar
     const [products, setProducts ]=useState<Product[]>([]);
 
     //Conectarnos a la API y obtener un JSON que tenga un arreglo de objetos
+    //El hock useEffect se usa para conectarse a una fuente externa
     useEffect(()=>{
             const getProducts= async()=>{
             const response= await fetch(`http://localhost:3001/page/${idPage}/items/${items}`)
@@ -31,6 +34,8 @@ export const Catalog = ({idPage, items}:PageProps)=>{
 
     },[idPage, items])
 
+    //<ProductCard {...product}/> desestrucutra el objeto product con todos los atributos que debe tener(productCard.tsx)
+    
     return(
         <div className="container">
             <h1>Catálogo de Productos</h1>
@@ -38,7 +43,7 @@ export const Catalog = ({idPage, items}:PageProps)=>{
                 { products.map(
                     (product)=>(
                         <div key={product.id} className="col-4">
-                            <ProductCard {...product}/>
+                            <ProductCard {...product}/> 
                         </div>
                     )
                 )}
